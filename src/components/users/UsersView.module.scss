@@ -1,0 +1,24 @@
+.container {
+  align-items: center;
+  text-align: center;
+}
+
+.name_input {
+  border: 1px solid black;
+  margin-right: 5px;
+}
+
+.submit_button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #3b82f6;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100px;
+}
+
+.submit_button:hover {
+  background-color: #2563eb;
+}

@@ -1,10 +1,54 @@
 "use client";
 
-import { useUsers } from "@/src/hooks/userUsers";
 import UsersView from "./UsersView";
+import { useCallback, useEffect, useState } from "react";
+import { User } from "./types";
+import { API_BASE_URL } from "./contents";
 
+// 画面表示用コンポーネント
 export default function UsersContainer() {
-  const { users } = useUsers();
+  // ユーザー一覧保持用state
+  const [users, setUsers] = useState<User[]>([]);
+  // 入力欄のユーザー名保持用state
+  const [userName, setUserName] = useState("");
 
-  return <UsersView users={users} />;
+  // ユーザー一覧取得処理
+  const fetchUsers = useCallback(async () => {
+    const response = await fetch(`${API_BASE_URL}/users`);
+    const data = await response.json();
+    setUsers(data);
+  }, []);
+
+  // 初回表示時にユーザー一覧取得
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchUsers();
+  }, [fetchUsers]);
+
+  // ユーザー登録処理
+  const handleAddUser = async () => {
+    await fetch(`${API_BASE_URL}/users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: userName,
+      }),
+    });
+
+    // 入力欄クリア
+    setUserName("");
+    // 最新一覧再取得
+    await fetchUsers();
+  };
+
+  return (
+    <UsersView
+      users={users}
+      userName={userName}
+      setUserName={setUserName}
+      handleAddUser={handleAddUser}
+    />
+  );
 }
