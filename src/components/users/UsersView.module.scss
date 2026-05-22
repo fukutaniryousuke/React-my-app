@@ -3,9 +3,28 @@
   text-align: center;
 }
 
+.no_users {
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.user_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 250px;
+
+  margin: 0 auto 10px;
+}
+
+.inputWrapper {
+  align-items: center;
+}
+
 .name_input {
   border: 1px solid black;
-  margin-right: 5px;
+  margin-right: 15px;
+  height: 30px;
 }
 
 .submit_button {
@@ -16,9 +35,60 @@
   color: white;
   cursor: pointer;
   transition: 0.2s;
-  width: 100px;
+  width: 90px;
+  height: 38px;
 }
 
 .submit_button:hover {
   background-color: #2563eb;
+}
+
+.cancel_button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  //   background-color: #2cdf35;
+  //   color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100px;
+  height: 38px;
+  margin-left: 10px;
+}
+
+.edit_button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2cdf35;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 90px;
+  height: 38px;
+  cursor: pointer;
+}
+
+.edit_button:focus {
+  outline: none;
+}
+
+.edit_button:active {
+  transform: scale(0.98);
+}
+
+.delete_button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f63b57;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 90px;
+  height: 38px;
+}
+
+.delete_button:hover {
+  background-color: #ce2c2c;
 }

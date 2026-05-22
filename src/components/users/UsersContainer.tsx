@@ -11,6 +11,8 @@ export default function UsersContainer() {
   const [users, setUsers] = useState<User[]>([]);
   // 入力欄のユーザー名保持用state
   const [userName, setUserName] = useState("");
+  // 編集フラグ
+  const [isEditUser, setIsEditUser] = useState(false);
 
   // ユーザー一覧取得処理
   const fetchUsers = useCallback(async () => {
@@ -43,12 +45,39 @@ export default function UsersContainer() {
     await fetchUsers();
   };
 
+  // ユーザー取得
+  const handleGetUser = async (id: number) => {
+    const response = await fetch(`${API_BASE_URL}/users/${id}`);
+    const data = await response.json();
+    setUserName(data.name);
+    setIsEditUser(true);
+  };
+
+  // ユーザー削除処理
+  const handleDeleteUser = async (id: number) => {
+    await fetch(`${API_BASE_URL}/users/${id}`, {
+      method: "DELETE",
+    });
+    // 最新一覧再取得
+    await fetchUsers();
+  };
+
+  // 編集キャンセル
+  const cancelEdit = () => {
+    setUserName("");
+    setIsEditUser(false);
+  };
+
   return (
     <UsersView
       users={users}
       userName={userName}
       setUserName={setUserName}
+      isEditUser={isEditUser}
       handleAddUser={handleAddUser}
+      handleDeleteUser={handleDeleteUser}
+      handleGetUser={handleGetUser}
+      cancelEdit={cancelEdit}
     />
   );
 }
