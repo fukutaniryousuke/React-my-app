@@ -9,6 +9,7 @@ type Props = {
   handleAddUser: () => Promise<void>;
   handleDeleteUser: (id: number) => Promise<void>;
   handleGetUser: (id: number) => Promise<void>;
+  handleUpdateUser: () => Promise<void>;
   cancelEdit: () => void;
 };
 
@@ -20,6 +21,7 @@ export default function UsersView({
   handleAddUser,
   handleDeleteUser,
   handleGetUser,
+  handleUpdateUser,
   cancelEdit,
 }: Props) {
   return (
@@ -38,7 +40,9 @@ export default function UsersView({
           </button>
         ) : (
           <>
-            <button className={styles.submit_button}>更新</button>
+            <button onClick={handleUpdateUser} className={styles.submit_button}>
+              更新
+            </button>
             <button onClick={cancelEdit} className={styles.cancel_button}>
               キャンセル
             </button>
@@ -51,7 +55,7 @@ export default function UsersView({
         )}
         {users.map((user) => (
           <li key={user.id} className={styles.user_item}>
-            {user.name}
+            <span className={styles.user_name}>{user.name}</span>
             <button
               onClick={() => handleGetUser(user.id)}
               className={styles.edit_button}

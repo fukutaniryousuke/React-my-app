@@ -8,12 +8,20 @@
   margin-top: 20px;
 }
 
+.user_name {
+  flex: 1;
+  text-align: left;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .user_item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 250px;
-
+  gap: 8px;
+  width: 360px;
   margin: 0 auto 10px;
 }
 

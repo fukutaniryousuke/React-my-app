@@ -13,11 +13,14 @@ export default function UsersContainer() {
   const [userName, setUserName] = useState("");
   // 編集フラグ
   const [isEditUser, setIsEditUser] = useState(false);
+  // ユーザーID
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
   // ユーザー一覧取得処理
   const fetchUsers = useCallback(async () => {
     const response = await fetch(`${API_BASE_URL}/users`);
     const data = await response.json();
+
     setUsers(data);
   }, []);
 
@@ -45,10 +48,28 @@ export default function UsersContainer() {
     await fetchUsers();
   };
 
+  // ユーザー更新処理
+  const handleUpdateUser = async () => {
+    await fetch(`${API_BASE_URL}/users/${selectedUserId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: selectedUserId, name: userName }),
+    });
+
+    // 更新後、各値をリセット
+    setSelectedUserId(null);
+    setUserName("");
+    setIsEditUser(false);
+
+    // 更新後のユーザ一覧を取得
+    fetchUsers();
+  };
+
   // ユーザー取得
   const handleGetUser = async (id: number) => {
     const response = await fetch(`${API_BASE_URL}/users/${id}`);
     const data = await response.json();
+    setSelectedUserId(id);
     setUserName(data.name);
     setIsEditUser(true);
   };
@@ -77,6 +98,7 @@ export default function UsersContainer() {
       handleAddUser={handleAddUser}
       handleDeleteUser={handleDeleteUser}
       handleGetUser={handleGetUser}
+      handleUpdateUser={handleUpdateUser}
       cancelEdit={cancelEdit}
     />
   );
