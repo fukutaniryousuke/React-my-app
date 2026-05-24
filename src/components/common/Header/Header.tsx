@@ -17,6 +17,10 @@ export default function Header() {
         <Link href="/users" className={styles.link}>
           Users
         </Link>
+
+        <Link href="/login" className={styles.link}>
+          Login
+        </Link>
       </nav>
     </header>
   );
