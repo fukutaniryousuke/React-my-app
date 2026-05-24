@@ -1,0 +1,85 @@
+.header {
+  height: 82px;
+
+  padding: 0 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: rgba(255, 248, 243, 0.95);
+
+  backdrop-filter: blur(8px);
+
+  border-bottom: 1px solid #f3e7dc;
+
+  box-shadow: 0 4px 20px rgba(188, 150, 126, 0.08);
+
+  position: sticky;
+  top: 0;
+
+  z-index: 100;
+}
+
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoIcon {
+  font-size: 28px;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+
+  color: #7a4e3a;
+
+  letter-spacing: 1px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.link {
+  position: relative;
+
+  text-decoration: none;
+
+  color: #8b6b5c;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  transition: 0.2s ease;
+}
+
+.link:hover {
+  color: #c0846a;
+}
+
+.link::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+
+  width: 0%;
+  height: 2px;
+
+  border-radius: 999px;
+
+  background: #e7b8a1;
+
+  transition: width 0.25s ease;
+}
+
+.link:hover::after {
+  width: 100%;
+}
