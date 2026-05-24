@@ -2,27 +2,23 @@ import styles from "./UserListView.module.scss";
 import { ButtonTextEnum, TitleTextEnum } from "../contents";
 import { User } from "../types";
 import { useRouter } from "next/navigation";
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 type Props = {
   users: User[];
   userName: string;
   setUserName: React.Dispatch<React.SetStateAction<string>>;
-  isEditUser: boolean;
   handleAddUser: () => Promise<void>;
   handleDeleteUser: (id: number) => Promise<void>;
-  handleUpdateUser: () => Promise<void>;
-  cancelEdit: () => void;
 };
 
 export default function UsersView({
   users,
   userName,
   setUserName,
-  isEditUser,
   handleAddUser,
   handleDeleteUser,
-  handleUpdateUser,
-  cancelEdit,
 }: Props) {
   const router = useRouter();
 
@@ -36,20 +32,14 @@ export default function UsersView({
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
         ></input>
-        {isEditUser === false ? (
-          <button onClick={handleAddUser} className={styles.submit_button}>
-            {ButtonTextEnum.CREATE}
-          </button>
-        ) : (
-          <>
-            <button onClick={handleUpdateUser} className={styles.submit_button}>
-              {ButtonTextEnum.UPDATE}
-            </button>
-            <button onClick={cancelEdit} className={styles.cancel_button}>
-              {ButtonTextEnum.CANCEL}
-            </button>
-          </>
-        )}
+        <Button
+          color="primary"
+          size="large"
+          variant="contained"
+          onClick={handleAddUser}
+        >
+          {ButtonTextEnum.CREATE}
+        </Button>
       </div>
       {users.length === 0 && (
         <p className={styles.no_users}>表示できるユーザーがいません。</p>
@@ -59,19 +49,22 @@ export default function UsersView({
           <li key={user.id} className={styles.user_item}>
             <span className={styles.user_name}>{user.name}</span>
 
-            <button
+            <Button
+              color="success"
+              variant="outlined"
               onClick={() => router.push(`/users/${user.id}`)}
-              className={styles.detail_button}
             >
               {ButtonTextEnum.DETAIL}
-            </button>
+            </Button>
 
-            <button
+            <Button
+              color="error"
+              variant="outlined"
               onClick={() => handleDeleteUser(user.id)}
-              className={styles.delete_button}
+              startIcon={<DeleteIcon />}
             >
               {ButtonTextEnum.DELETE}
-            </button>
+            </Button>
           </li>
         ))}
       </ul>

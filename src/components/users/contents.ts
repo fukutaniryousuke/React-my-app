@@ -13,3 +13,5 @@ export enum ButtonTextEnum {
   DETAIL = "詳細",
   BACK = "戻る",
 }
+
+export const DELETE_CONFIRM_MESSAGE = "本当に削除しますか？";

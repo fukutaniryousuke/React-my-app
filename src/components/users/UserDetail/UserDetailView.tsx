@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation";
 import { ButtonTextEnum, TitleTextEnum } from "../contents";
 import { User } from "../types";
 import styles from "./UserDetailView.module.scss";
+import Button from "@mui/material/Button";
 
 type Props = {
   handleGetUser: (id: number) => Promise<void>;
@@ -30,18 +31,24 @@ export default function UserDetailView({ handleGetUser, user }: Props) {
         </tbody>
       </table>
 
-      <button
-        // onClick={() => handleGetUser(user.id)}
+      <Button
+        color="success"
+        size="large"
+        variant="contained"
         className={styles.edit_button}
+        // onClick={() => handleGetUser(user.id)}
       >
         {ButtonTextEnum.EDIT}
-      </button>
-      <button
+      </Button>
+      <Button
+        sx={{ mt: 2 }}
+        color="greyCustom"
+        variant="contained"
         onClick={() => router.push("/users")}
         className={styles.back_button}
       >
         {ButtonTextEnum.BACK}
-      </button>
+      </Button>
     </div>
   );
 }

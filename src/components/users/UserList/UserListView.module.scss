@@ -25,77 +25,11 @@
 }
 
 .inputWrapper {
-  gap: 10px;
+  margin-bottom: 30px;
 }
 
 .name_input {
   border: 1px solid black;
   margin-right: 15px;
   height: 30px;
-}
-
-.submit_button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  background-color: #3b82f6;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s;
-  width: 90px;
-  height: 38px;
-}
-
-.submit_button:hover {
-  background-color: red;
-}
-
-.cancel_button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  //   background-color: #2cdf35;
-  //   color: white;
-  cursor: pointer;
-  transition: 0.2s;
-  width: 100px;
-  height: 38px;
-  margin-left: 10px;
-}
-
-.detail_button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  background-color: #2cdf35;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s;
-  width: 90px;
-  height: 38px;
-  cursor: pointer;
-}
-
-.detail_button:focus {
-  outline: none;
-}
-
-.detail_button:active {
-  transform: scale(0.98);
-}
-
-.delete_button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  background-color: #f63b57;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s;
-  width: 90px;
-  height: 38px;
-}
-
-.delete_button:hover {
-  background-color: #ce2c2c;
 }
