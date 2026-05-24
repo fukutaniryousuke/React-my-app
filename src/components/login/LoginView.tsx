@@ -6,7 +6,7 @@ export default function LoginView() {
       <h2>ログイン</h2>
       <div className={styles.inputArea}>
         <input type="text" />
-        <button></button>
+        <button>ログイン</button>
       </div>
     </div>
   );

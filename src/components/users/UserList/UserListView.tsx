@@ -1,5 +1,7 @@
-import styles from "./UsersView.module.scss";
-import { User } from "./types";
+import styles from "./UserListView.module.scss";
+import { ButtonTextEnum, TitleTextEnum } from "../contents";
+import { User } from "../types";
+import { useRouter } from "next/navigation";
 
 type Props = {
   users: User[];
@@ -8,7 +10,6 @@ type Props = {
   isEditUser: boolean;
   handleAddUser: () => Promise<void>;
   handleDeleteUser: (id: number) => Promise<void>;
-  handleGetUser: (id: number) => Promise<void>;
   handleUpdateUser: () => Promise<void>;
   cancelEdit: () => void;
 };
@@ -20,13 +21,14 @@ export default function UsersView({
   isEditUser,
   handleAddUser,
   handleDeleteUser,
-  handleGetUser,
   handleUpdateUser,
   cancelEdit,
 }: Props) {
+  const router = useRouter();
+
   return (
     <div className={styles.container}>
-      <h2>User一覧</h2>
+      <h2>{TitleTextEnum.USER_LIST}</h2>
       <div className={styles.inputWrapper}>
         <input
           className={styles.name_input}
@@ -36,38 +38,39 @@ export default function UsersView({
         ></input>
         {isEditUser === false ? (
           <button onClick={handleAddUser} className={styles.submit_button}>
-            追加
+            {ButtonTextEnum.CREATE}
           </button>
         ) : (
           <>
             <button onClick={handleUpdateUser} className={styles.submit_button}>
-              更新
+              {ButtonTextEnum.UPDATE}
             </button>
             <button onClick={cancelEdit} className={styles.cancel_button}>
-              キャンセル
+              {ButtonTextEnum.CANCEL}
             </button>
           </>
         )}
       </div>
-      <ul className={styles.no_users}>
-        {users.length === 0 && (
-          <p className={styles.no_users}>表示できるユーザーがいません。</p>
-        )}
+      {users.length === 0 && (
+        <p className={styles.no_users}>表示できるユーザーがいません。</p>
+      )}
+      <ul>
         {users.map((user) => (
           <li key={user.id} className={styles.user_item}>
             <span className={styles.user_name}>{user.name}</span>
+
             <button
-              onClick={() => handleGetUser(user.id)}
-              className={styles.edit_button}
+              onClick={() => router.push(`/users/${user.id}`)}
+              className={styles.detail_button}
             >
-              編集
+              {ButtonTextEnum.DETAIL}
             </button>
 
             <button
               onClick={() => handleDeleteUser(user.id)}
               className={styles.delete_button}
             >
-              削除
+              {ButtonTextEnum.DELETE}
             </button>
           </li>
         ))}

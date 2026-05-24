@@ -1,9 +1,9 @@
 "use client";
 
-import UsersView from "./UsersView";
+import UsersView from "./UserListView";
 import { useCallback, useEffect, useState } from "react";
-import { User } from "./types";
-import { API_BASE_URL } from "./contents";
+import { User } from "../types";
+import { API_BASE_URL } from "../contents";
 
 // 画面表示用コンポーネント
 export default function UsersContainer() {
@@ -97,7 +97,6 @@ export default function UsersContainer() {
       isEditUser={isEditUser}
       handleAddUser={handleAddUser}
       handleDeleteUser={handleDeleteUser}
-      handleGetUser={handleGetUser}
       handleUpdateUser={handleUpdateUser}
       cancelEdit={cancelEdit}
     />

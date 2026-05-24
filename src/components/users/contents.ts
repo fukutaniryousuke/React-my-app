@@ -1,1 +1,15 @@
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL!;
+export enum TitleTextEnum {
+  USER_LIST = "ユーザー一覧",
+  USER_DETAIL = "ユーザー詳細",
+}
+
+export enum ButtonTextEnum {
+  CREATE = "登録",
+  UPDATE = "更新",
+  CANCEL = "キャンセル",
+  EDIT = "編集",
+  DELETE = "削除",
+  DETAIL = "詳細",
+  BACK = "戻る",
+}
