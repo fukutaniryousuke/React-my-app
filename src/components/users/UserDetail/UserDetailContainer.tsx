@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import UserDetailView from "./UserDetailView";
 import { API_BASE_URL } from "@/src/components/users/contents";
 import { User } from "../types";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export default function UserDetailContainer() {
   const params = useParams();
@@ -18,12 +18,7 @@ export default function UserDetailContainer() {
   // 編集フラグ
   const [isEditUser, setIsEditUser] = useState(false);
 
-  // ユーザー取得
-  const handleGetUser = async (id: number) => {
-    const response = await fetch(`${API_BASE_URL}/users/${id}`);
-    const data = await response.json();
-    setUser(data);
-  };
+  const router = useRouter();
 
   // 初回表示処理
   useEffect(() => {
@@ -31,21 +26,55 @@ export default function UserDetailContainer() {
       const response = await fetch(`${API_BASE_URL}/users/${id}`);
       const data = await response.json();
       setUser(data);
+
+      setIsEditUser(false);
     };
     fetchUser();
   }, [id]);
+
+  if (!user) {
+    return <p>読み込み中...</p>;
+  }
+
+  // 編集モード切り替え
+  const changeIsEditUser = () => {
+    setIsEditUser(true);
+  };
+
+  // 入力内容更新
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   // ユーザー更新処理
   const handleUpdateUser = async () => {
     await fetch(`${API_BASE_URL}/users/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: id, name: user?.name }),
+      body: JSON.stringify(user),
     });
 
     // 更新後、各値をリセット
     setIsEditUser(false);
   };
 
-  return <UserDetailView handleGetUser={handleGetUser} user={user} />;
+  // 戻るボタン押下
+  const handleCancel = () => {
+    setIsEditUser(false);
+    router.push("/users");
+  };
+
+  return (
+    <UserDetailView
+      user={user}
+      changeIsEditUser={changeIsEditUser}
+      isEditUser={isEditUser}
+      handleUpdateUser={handleUpdateUser}
+      handleOnChange={handleOnChange}
+      handleCancel={handleCancel}
+    />
+  );
 }

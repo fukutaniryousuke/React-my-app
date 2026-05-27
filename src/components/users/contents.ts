@@ -2,6 +2,7 @@ export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL!;
 export enum TitleTextEnum {
   USER_LIST = "ユーザー一覧",
   USER_DETAIL = "ユーザー詳細",
+  USER_REGISTRATION = "ユーザー登録",
 }
 
 export enum ButtonTextEnum {

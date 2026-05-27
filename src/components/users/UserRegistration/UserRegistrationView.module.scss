@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.errorMassage {
+  color: red;
+}
+
+.formWrapper {
+  margin-bottom: 40px;
+  width: 400px;
+}
