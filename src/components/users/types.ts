@@ -5,9 +5,16 @@ export type User = {
   password: string;
 };
 
-export type CreateUser = {
+export type UserFormModel = {
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
+};
+
+export type FormErrors = {
+  name?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
 };

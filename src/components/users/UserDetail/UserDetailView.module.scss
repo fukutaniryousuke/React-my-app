@@ -4,14 +4,18 @@
   text-align: center;
   flex-direction: column;
 }
+.errorMessage {
+  color: red;
+  margin-bottom: 10px;
+}
 
 .edit_button {
-  width: 90px;
+  width: 100px;
   height: 38px;
 }
 
 .back_button {
-  width: 90px;
+  width: 120px;
   height: 38px;
 }
 

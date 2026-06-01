@@ -1,12 +1,12 @@
 .container {
   display: flex;
   align-items: center;
-  text-align: center;
   flex-direction: column;
 }
 
 .errorMassage {
   color: red;
+  margin-bottom: 10px;
 }
 
 .formWrapper {

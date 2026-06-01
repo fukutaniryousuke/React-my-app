@@ -1,25 +1,30 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { ButtonTextEnum, TitleTextEnum } from "../contents";
 import styles from "./UserRegistrationView.module.scss";
-import { CreateUser } from "../types";
+import { UserFormModel } from "../types";
 
 type Props = {
-  user: CreateUser;
-  message: string | undefined;
+  user: UserFormModel;
+  messages: string[];
   handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleUserCreate: () => Promise<void>;
 };
 
 export default function UserRegistrationView({
   user,
-  message,
+  messages,
   handleOnChange,
   handleUserCreate,
 }: Props) {
   return (
     <div className={styles.container}>
       <h2>{TitleTextEnum.USER_REGISTRATION}</h2>
-      <p className={styles.errorMassage}>{message}</p>
+      {messages?.map((message, index) => (
+        <span key={index} className={styles.errorMassage}>
+          {message}
+        </span>
+      ))}
+
       <div className={styles.formWrapper}>
         {/* 名前 */}
         <Box
