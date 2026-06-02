@@ -91,7 +91,7 @@ export default function UserDetailContainer() {
 
   // 入力内容更新
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setErrorMessages({});
+    setErrorMessages({ ...errorMessages, [e.target.name]: "" });
     setUser({
       ...user,
       [e.target.name]: e.target.value,
