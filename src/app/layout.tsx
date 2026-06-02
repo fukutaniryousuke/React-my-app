@@ -4,6 +4,10 @@ import "./globals.css";
 import { MswProvider } from "../components/providers/MswProvider";
 import Header from "../components/common/Header/Header";
 import Footer from "../components/common/Footer/Footer";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "../styles/theme";
+import Providers from "./providers/Providers";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,9 +34,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Header />
-        <MswProvider>{children}</MswProvider>
-        <Footer />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

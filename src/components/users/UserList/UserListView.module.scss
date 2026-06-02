@@ -1,0 +1,35 @@
+.container {
+  text-align: center;
+}
+
+.no_users {
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.user_name {
+  flex: 1;
+  text-align: left;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user_item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 360px;
+  margin: 0 auto 10px;
+}
+
+.inputWrapper {
+  margin-bottom: 30px;
+}
+
+.name_input {
+  border: 1px solid black;
+  margin-right: 15px;
+  height: 30px;
+}

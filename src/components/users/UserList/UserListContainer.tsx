@@ -1,9 +1,9 @@
 "use client";
 
-import UsersView from "./UsersView";
+import UsersView from "./UserListView";
 import { useCallback, useEffect, useState } from "react";
-import { User } from "./types";
-import { API_BASE_URL } from "./contents";
+import { User } from "../types";
+import { API_BASE_URL, DELETE_CONFIRM_MESSAGE } from "../contents";
 
 // 画面表示用コンポーネント
 export default function UsersContainer() {
@@ -11,10 +11,6 @@ export default function UsersContainer() {
   const [users, setUsers] = useState<User[]>([]);
   // 入力欄のユーザー名保持用state
   const [userName, setUserName] = useState("");
-  // 編集フラグ
-  const [isEditUser, setIsEditUser] = useState(false);
-  // ユーザーID
-  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
   // ユーザー一覧取得処理
   const fetchUsers = useCallback(async () => {
@@ -48,34 +44,10 @@ export default function UsersContainer() {
     await fetchUsers();
   };
 
-  // ユーザー更新処理
-  const handleUpdateUser = async () => {
-    await fetch(`${API_BASE_URL}/users/${selectedUserId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: selectedUserId, name: userName }),
-    });
-
-    // 更新後、各値をリセット
-    setSelectedUserId(null);
-    setUserName("");
-    setIsEditUser(false);
-
-    // 更新後のユーザ一覧を取得
-    fetchUsers();
-  };
-
-  // ユーザー取得
-  const handleGetUser = async (id: number) => {
-    const response = await fetch(`${API_BASE_URL}/users/${id}`);
-    const data = await response.json();
-    setSelectedUserId(id);
-    setUserName(data.name);
-    setIsEditUser(true);
-  };
-
   // ユーザー削除処理
   const handleDeleteUser = async (id: number) => {
+    const ok = confirm(DELETE_CONFIRM_MESSAGE);
+    if (!ok) return;
     await fetch(`${API_BASE_URL}/users/${id}`, {
       method: "DELETE",
     });
@@ -83,23 +55,13 @@ export default function UsersContainer() {
     await fetchUsers();
   };
 
-  // 編集キャンセル
-  const cancelEdit = () => {
-    setUserName("");
-    setIsEditUser(false);
-  };
-
   return (
     <UsersView
       users={users}
       userName={userName}
       setUserName={setUserName}
-      isEditUser={isEditUser}
       handleAddUser={handleAddUser}
       handleDeleteUser={handleDeleteUser}
-      handleGetUser={handleGetUser}
-      handleUpdateUser={handleUpdateUser}
-      cancelEdit={cancelEdit}
     />
   );
 }
