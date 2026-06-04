@@ -1,12 +1,15 @@
 "use client";
 
 import UsersView from "./UserListView";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { User } from "../types";
 import { API_BASE_URL, DELETE_CONFIRM_MESSAGE } from "../contents";
+import { AuthContext } from "@/src/contexts/AuthContext";
 
 // 画面表示用コンポーネント
 export default function UsersContainer() {
+  // ログインユーザ情報
+  const authContext = useContext(AuthContext);
   // ユーザー一覧保持用state
   const [users, setUsers] = useState<User[]>([]);
   // 入力欄のユーザー名保持用state
@@ -62,6 +65,7 @@ export default function UsersContainer() {
       setUserName={setUserName}
       handleAddUser={handleAddUser}
       handleDeleteUser={handleDeleteUser}
+      loginUser={authContext?.loginUser}
     />
   );
 }

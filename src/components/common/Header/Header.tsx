@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import styles from "./Header.module.scss";
+import { useContext } from "react";
+import { AuthContext } from "@/src/contexts/AuthContext";
 
 export default function Header() {
+  const authContext = useContext(AuthContext);
   return (
     <header className={styles.header}>
       <div className={styles.logoArea}>
@@ -13,18 +18,20 @@ export default function Header() {
         <Link href="/" className={styles.link}>
           Home
         </Link>
-
-        <Link href="/users" className={styles.link}>
-          Users
-        </Link>
-
-        <Link href="/login" className={styles.link}>
-          Login
-        </Link>
-
-        <Link href="/users/registration" className={styles.link}>
-          Sign up
-        </Link>
+        {authContext ? (
+          <Link href="/users" className={styles.link}>
+            Users
+          </Link>
+        ) : (
+          <>
+            <Link href="/login" className={styles.link}>
+              Login
+            </Link>
+            <Link href="/users/registration" className={styles.link}>
+              Sign up
+            </Link>
+          </>
+        )}
       </nav>
     </header>
   );

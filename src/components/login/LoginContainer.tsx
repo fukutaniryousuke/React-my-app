@@ -6,8 +6,10 @@ import LoginView from "./LoginView";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { API_BASE_URL } from "../users/contents";
+import { AuthContext } from "@/src/contexts/AuthContext";
 
 export default function LoginContainer() {
+  // ユーザー情報
   const [user, setUser] = useState<User>({
     id: 0,
     name: "",
@@ -15,14 +17,18 @@ export default function LoginContainer() {
     password: "",
   });
 
+  // エラーメッセージ
   const [errorMessages, setErrorMessages] = useState<LoginFormErrors>({});
 
+  // ログイン失敗メッセージ
   const [message, setMessage] = useState<string>("");
 
+  // ルーター
   const router = useRouter();
 
-  // const [loginUser, setLoginUser] = useContext<User>()
+  const authContext = useContext(AuthContext);
 
+  // スキーマ
   const LoginSchema = z.object({
     email: z
       .email("メールアドレス形式で入力してください。")
@@ -60,15 +66,17 @@ export default function LoginContainer() {
       setMessage("通信エラーが発生しました。");
       return;
     }
-    const resultUsers: LoginUser[] = await response.json();
+    const resultUsers: User[] = await response.json();
 
     const loginUser = resultUsers.find(
-      (u: LoginUser) => u.email === user.email && u.password === user.password,
+      (u) => u.email === user.email && u.password === user.password,
     );
     if (loginUser === undefined) {
       setMessage("メールアドレスかパスワードが間違っています。");
       return;
     }
+
+    authContext?.setLoginUser(loginUser);
 
     router.push("/users");
   };

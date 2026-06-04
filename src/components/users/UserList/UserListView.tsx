@@ -11,6 +11,7 @@ type Props = {
   setUserName: React.Dispatch<React.SetStateAction<string>>;
   handleAddUser: () => Promise<void>;
   handleDeleteUser: (id: number) => Promise<void>;
+  loginUser: User | null | undefined;
 };
 
 export default function UsersView({
@@ -19,12 +20,14 @@ export default function UsersView({
   setUserName,
   handleAddUser,
   handleDeleteUser,
+  loginUser,
 }: Props) {
   const router = useRouter();
 
   return (
     <div className={styles.container}>
       <h2>{TitleTextEnum.USER_LIST}</h2>
+      <h3>ようこそ！{loginUser?.name}</h3>
       <div className={styles.inputWrapper}>
         <input
           className={styles.name_input}
