@@ -5,6 +5,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { User } from "../types";
 import { API_BASE_URL, DELETE_CONFIRM_MESSAGE } from "../contents";
 import { AuthContext } from "@/src/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 // 画面表示用コンポーネント
 export default function UsersContainer() {
@@ -14,6 +15,8 @@ export default function UsersContainer() {
   const [users, setUsers] = useState<User[]>([]);
   // 入力欄のユーザー名保持用state
   const [userName, setUserName] = useState("");
+  // ルーター
+  const router = useRouter();
 
   // ユーザー一覧取得処理
   const fetchUsers = useCallback(async () => {
@@ -25,9 +28,13 @@ export default function UsersContainer() {
 
   // 初回表示時にユーザー一覧取得
   useEffect(() => {
+    if (!authContext?.loginUser) {
+      router.push("/");
+      return;
+    }
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchUsers();
-  }, [fetchUsers]);
+  }, [fetchUsers, authContext?.loginUser, router]);
 
   // ユーザー登録処理
   const handleAddUser = async () => {
@@ -57,6 +64,10 @@ export default function UsersContainer() {
     // 最新一覧再取得
     await fetchUsers();
   };
+
+  if (!authContext?.loginUser) {
+    return null;
+  }
 
   return (
     <UsersView

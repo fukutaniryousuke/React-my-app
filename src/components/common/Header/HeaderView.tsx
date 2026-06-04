@@ -4,9 +4,14 @@ import Link from "next/link";
 import styles from "./Header.module.scss";
 import { useContext } from "react";
 import { AuthContext } from "@/src/contexts/AuthContext";
+import { User } from "../../users/types";
 
-export default function Header() {
-  const authContext = useContext(AuthContext);
+type Props = {
+  loginUser: User | null;
+  handleLogout: () => void;
+};
+
+export default function HeaderView({ loginUser, handleLogout }: Props) {
   return (
     <header className={styles.header}>
       <div className={styles.logoArea}>
@@ -18,10 +23,15 @@ export default function Header() {
         <Link href="/" className={styles.link}>
           Home
         </Link>
-        {authContext ? (
-          <Link href="/users" className={styles.link}>
-            Users
-          </Link>
+        {loginUser ? (
+          <>
+            <Link href="/users" className={styles.link}>
+              Users
+            </Link>
+            <Link href="/" className={styles.link} onClick={handleLogout}>
+              Logout
+            </Link>
+          </>
         ) : (
           <>
             <Link href="/login" className={styles.link}>

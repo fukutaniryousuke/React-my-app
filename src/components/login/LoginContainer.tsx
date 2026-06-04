@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext, useState } from "react";
-import { LoginFormErrors, LoginUser, User } from "../users/types";
+import { LoginFormErrors, User } from "../users/types";
 import LoginView from "./LoginView";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
